@@ -19,10 +19,10 @@
   --vh: 100vh;
   --pad: 16px;
   --bar-h: 58px;
-  --rail-open: 72px;         /* arkets överkant när det är öppet */
+  --rail-open: 80px;         /* arkets överkant när det är öppet */
   --grip-h: 40px;
-  --logo-w: 92.29px;         /* 75 % av Figma (123,05 × 57,6) */
-  --logo-h: 43.2px;
+  --logo-w: 110.75px;        /* 90 % av Figma (123,05 × 57,6) */
+  --logo-h: 51.84px;
   --logo-sink: 4px;          /* hjulen vilar en bit ner i listen */
   --shade-h: 120px;
   --shade-to: 0.6;
@@ -142,7 +142,7 @@ ul { list-style: none; }
   max-width: none;
 }
 
-.js .hero__track { will-change: transform; }
+.js .hero__tile { will-change: transform; }
 
 .hero::after {                  /* mobilens svaga mörkning */
   content: "";
@@ -247,21 +247,21 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
   letter-spacing: 0.04em;
   text-decoration: none;
   white-space: nowrap;
 }
 
-.bar__pin { flex: none; width: 13px; height: 18px; }
+.bar__pin { flex: none; width: 15.2px; height: 21px; }
 .bar__open { display: none; }
 
-.bar__social { display: flex; align-items: center; gap: 10px; }
+.bar__social { display: flex; align-items: center; gap: 12px; }
 .bar__social a, .bar__icon { display: block; padding: 10px 0; }
 .bar__social a:hover, .bar__address:hover { opacity: 0.85; }
-.icon-instagram { width: 20px; height: 20px; }
-.icon-tiktok { width: 15.4px; height: 20px; }
+.icon-instagram { width: 26px; height: 26px; }
+.icon-tiktok { width: 20px; height: 26px; }
 
 .bar--in-sheet { display: flex; }
 
@@ -375,6 +375,9 @@ ul { list-style: none; }
   font-size: 13.5px;
   line-height: 1.35;
 }
+
+/* Bagels har pris per rad: beskrivningen bryts innan priskolumnen. */
+.item__name:has(.price) + .item__desc { padding-right: 48px; }
 
 .rows {
   display: flex;
@@ -532,27 +535,20 @@ ul { list-style: none; }
 .others__link {
   display: grid;
   place-items: center;
-  width: 116.16px;
-  height: 31.68px;
+  width: 118px;
+  height: 44px;
+  -webkit-tap-highlight-color: transparent;
   transition: opacity 200ms ease;
 }
 .others__link:hover { opacity: 0.8; }
 
-/* Loggorna är satta som i Figma: delarna ligger på samma platser i procent,
-   så de skalar ihop mellan mobil (0,44) och desktop (1,0). */
+/* Varje logga är en enda bild, så att hela loggan är en länk. */
 .logo { position: relative; display: block; }
-.logo img { position: absolute; max-width: none; }
+.logo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
 
-.logo--cucina { width: 88px; aspect-ratio: 200 / 32.55; }
-.logo--cucina img:nth-child(1) { left: 0; top: 0; width: 49.06%; height: 61.91%; }
-.logo--cucina img:nth-child(2) { left: 54.38%; top: 12.91%; width: 45.62%; height: 87.09%; }
-
-.logo--danderyd { width: 40.13px; aspect-ratio: 91.21 / 62; }
-.logo--danderyd img:nth-child(1) { left: 0; top: 19.39%; width: 100%; height: 80.61%; }
-.logo--danderyd img:nth-child(2) { left: 19.14%; top: 0; width: 59.66%; height: 9%; }
-
-.logo--taameya { width: 73.95px; aspect-ratio: 168.07 / 50; }
-.logo--taameya img { inset: 0; width: 100%; height: 100%; }
+.logo--cucina { width: 104px; aspect-ratio: 200 / 32.55; }
+.logo--danderyd { width: 50px; aspect-ratio: 91.21 / 62; }
+.logo--taameya { width: 90px; aspect-ratio: 168.07 / 50; }
 
 @media (min-width: 768px) {
   .others { gap: 16px; padding: 24px var(--pad) 28px; }
@@ -733,6 +729,13 @@ ul { list-style: none; }
 .wheel-turn--s { transform-origin: 168.065px 83.645px; }
 
 .js .page.is-rolling .wheel-turn { transition: transform 900ms var(--ease); }
+
+/* På mobil kommer scrollen i små steg med fingret, så loggan och hjulen följer direkt.
+   Den mjuka övergången när arket öppnas och stängs (is-rolling) är kvar. */
+@media (max-width: 767px) {
+  .rider__logo { transition: bottom var(--t-sheet) var(--ease); }
+  .wheel-turn { transition: none; }
+}
 
 /* Medan man drar i arket följer allt fingret direkt. */
 .js .page.is-dragging .sheet,

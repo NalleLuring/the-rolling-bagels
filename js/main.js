@@ -100,15 +100,17 @@
     });
   });
 
-  closeBtn.addEventListener('click', () => {
+  // Fokus går tillbaka till knappen bara när man stänger med tangentbordet (Enter, Esc).
+  // Med finger eller mus syns annars en ring runt knappen efteråt.
+  closeBtn.addEventListener('click', (event) => {
     if (swallowClick) {
       swallowClick = false;
       return;
     }
-    close();
+    close({ restoreFocus: event.detail === 0 });
   });
 
-  hero.addEventListener('click', () => close());
+  hero.addEventListener('click', () => close({ restoreFocus: false }));
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && mode !== null) close();
@@ -144,7 +146,7 @@
   function progress() {
     if (mode === null) return 0;
     const max = scroller.scrollHeight - scroller.clientHeight;
-    if (max <= 1) return mode === 'visit' ? 1 : 0;
+    if (max <= 1) return 0;
     return Math.min(1, Math.max(0, scroller.scrollTop / max));
   }
 
@@ -217,7 +219,7 @@
     page.classList.remove('is-dragging');
     page.style.removeProperty('--rail');
     if (dy > 6) swallowClick = true;
-    if (dy > 90 || (speed > 0.6 && dy > 24)) close();
+    if (dy > 90 || (speed > 0.6 && dy > 24)) close({ restoreFocus: false });
   }
 
   // Greppet överst i arket (mobil).
@@ -268,8 +270,8 @@
   // - jämn takt åt vänster, 50 px i sekunden (lite lugnare än Apollos ca 77),
   // - mushjul och styrplatta flyttar raden lika långt som man scrollar (bakåt-scroll flyttar bakåt),
   // - med fingret följer raden svepet, och när man släpper fortsätter den med fart som minskar
-  //   med 5 % per bildruta tills den är nere i den jämna takten igen,
-  // - när menyn är öppen följer raden med när man scrollar i menyn.
+  //   med 5 % per bildruta tills den är nere i den jämna takten igen.
+  // Scroll i menyn påverkar inte raden: den går i sin jämna takt medan menyn är öppen.
   const heroTrack = document.querySelector('.hero__track');
   const heroSet = heroTrack && heroTrack.querySelector('.hero__set');
   if (heroTrack && heroSet) {
@@ -280,6 +282,11 @@
       img.removeAttribute('fetchpriority');
     });
     heroTrack.appendChild(copy);
+
+    // Varje bild flyttas för sig. Hela raden är över 10 000 px bred, och flyttad i ett stycke
+    // blir den en enda jättelik yta som iPhone inte orkar rita smidigt.
+    const tiles = [...heroTrack.querySelectorAll('.hero__tile')];
+    let lastX = '';
 
     const HERO_SPEED = 50;             // px per sekund
     const BASE_STEP = HERO_SPEED / 60; // px per bildruta, gränsen där farten släpps
@@ -296,10 +303,11 @@
     const measure = () => { loop = heroSet.getBoundingClientRect().width; };
     measure();
     window.addEventListener('resize', measure);
-    // Saknar en bild width och height blir rutan rätt bred först när bilden har laddat.
-    heroSet.querySelectorAll('img').forEach((img) => {
-      if (!img.complete) img.addEventListener('load', measure, { once: true });
-    });
+    // Safari på iPhone ger en bild utan src bredden 0, trots width, height och aspect-ratio.
+    // Då blir varvet för kort och raden börjar om efter ett par bilder. Därför mäts raden om
+    // varje gång den ändrar bredd, till exempel när en senare bild har laddat.
+    if ('ResizeObserver' in window) new ResizeObserver(measure).observe(heroSet);
+    heroSet.querySelectorAll('img').forEach((img) => img.addEventListener('load', measure));
 
     // Fingret flyttar raden direkt. Scroll (mushjul, styrplatta, menyn) läggs på över
     // några bildrutor, så att ett hack i mushjulet blir en mjuk knuff i stället för ett ryck.
@@ -325,14 +333,18 @@
         }
       }
       if (loop > 0) offset = ((offset % loop) + loop) % loop;
-      heroTrack.style.transform = `translate3d(${(-offset).toFixed(2)}px, 0, 0)`;
+      const x = `translate3d(${(-offset).toFixed(2)}px, 0, 0)`;
+      if (x !== lastX) {
+        for (const tile of tiles) tile.style.transform = x;
+        lastX = x;
+      }
       requestAnimationFrame(frame);
     };
     requestAnimationFrame(frame);
 
     const inSheet = (target) => target instanceof Node && sheet.contains(target);
 
-    // Mushjul och styrplatta, var som helst utom i menyarket (där tar menyns scroll över).
+    // Mushjul och styrplatta, var som helst utom i menyarket (där scrollar bara menyn).
     window.addEventListener('wheel', (event) => {
       if (inSheet(event.target)) return;
       const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerWidth : 1;
@@ -363,14 +375,6 @@
     };
     window.addEventListener('touchend', endTouch);
     window.addEventListener('touchcancel', endTouch);
-
-    // Scroll i menyn flyttar raden lika långt.
-    let lastSheetScroll = scroller.scrollTop;
-    scroller.addEventListener('scroll', () => {
-      const delta = scroller.scrollTop - lastSheetScroll;
-      lastSheetScroll = scroller.scrollTop;
-      if (mode !== null) queue(delta);
-    }, { passive: true });
 
     // Bild 3 och framåt laddas när de är en skärmbredd från att glida in. Webbläsarens egen
     // lazy loading ser inte bilder som heron klipper bort, så de skulle dyka upp tomma.
