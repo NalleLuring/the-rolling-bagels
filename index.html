@@ -6,6 +6,11 @@
   <title>The Rolling Bagels · Bagels vid Odenplan, Stockholm</title>
   <meta name="description" content="Nyrullade bagels, specialkaffe, juice och smoothies vid Odenplan. The Rolling Bagels, Odengatan 43, Stockholm. Öppet mån–fre 08–16, lör–sön 09–16.">
   <meta name="theme-color" content="#a13231">
+  <!-- Favikon: röd i ljust läge, gul (krämvit) i mörkt läge. PNG:en är reserv för äldre webbläsare. -->
+  <link rel="icon" href="images/icons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="images/icons/favicon-red.svg" type="image/svg+xml" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="images/icons/favicon-yellow.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="sv_SE">
   <meta property="og:title" content="The Rolling Bagels">
@@ -289,6 +294,8 @@
             </section>
           </div>
 
+          <!-- Besök oss, andra restauranger och listen: fyller minst en skärm, både efter menyn och i Besök oss. -->
+          <div class="sheet__end">
           <section class="visit" id="visit-us" aria-labelledby="rubrik-visit">
             <div class="visit__inner">
               <div class="visit__intro">
@@ -306,7 +313,7 @@
           </section>
 
           <section class="others" aria-labelledby="rubrik-others">
-            <h2 class="others__title" id="rubrik-others">Besök våra andra restauranger</h2>
+            <h2 class="others__title" id="rubrik-others">Besök gärna våra andra restauranger</h2>
             <ul class="others__list">
               <li class="others__item">
                 <a class="others__link" href="https://cucinapovera.se" aria-label="Cucina Povera">
@@ -336,12 +343,12 @@
           <div class="bar bar--in-sheet">
             <a class="bar__address" href="https://www.google.com/maps/search/?api=1&amp;query=Odengatan%2043%2C%20113%2051%20Stockholm" target="_blank" rel="noopener">
               <img class="bar__pin" src="images/icons/pin.svg" alt="" width="17" height="24">
-              <span>Odenplan · Odengatan 43</span>
+              <span>Odengatan 43</span>
             </a>
             <ul class="bar__social">
               <li><a href="https://www.instagram.com/therollingbagels/" target="_blank" rel="noopener" aria-label="Instagram"><img class="icon-instagram" src="images/icons/instagram.svg" alt="" width="29" height="29"></a></li>
-              <li><span class="bar__icon"><img class="icon-tiktok" src="images/icons/tiktok.svg" alt="TikTok" width="22" height="29"></span></li>
             </ul>
+          </div>
           </div>
 
         </div>
@@ -351,7 +358,7 @@
     <footer class="bar bar--fixed">
       <a class="bar__address" href="https://www.google.com/maps/search/?api=1&amp;query=Odengatan%2043%2C%20113%2051%20Stockholm" target="_blank" rel="noopener">
         <img class="bar__pin" src="images/icons/pin.svg" alt="" width="17" height="24">
-        <span>Odenplan · Odengatan 43</span>
+        <span>Odengatan 43</span>
       </a>
       <p class="bar__open">
         <img class="bar__wheel" src="images/icons/wheel.svg" alt="" width="10" height="10">
@@ -360,7 +367,6 @@
       </p>
       <ul class="bar__social">
         <li><a href="https://www.instagram.com/therollingbagels/" target="_blank" rel="noopener" aria-label="Instagram"><img class="icon-instagram" src="images/icons/instagram.svg" alt="" width="29" height="29"></a></li>
-        <li><span class="bar__icon"><img class="icon-tiktok" src="images/icons/tiktok.svg" alt="TikTok" width="22" height="29"></span></li>
       </ul>
     </footer>
   </div>
