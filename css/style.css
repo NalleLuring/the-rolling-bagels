@@ -1,0 +1,763 @@
+/* The Rolling Bagels: webbplats
+   Byggd efter Figma "Real Food Company", sidan Website, sektionen
+   "The Rolling Bagels – Final Screens (Mobile + Desktop)" (2677:1283).
+   Mobil följer 390 px-ramarna, desktop följer 1728 px-ramarna. */
+
+:root {
+  --cream: #fff5cc;          /* baglebagle */
+  --red: #a13231;            /* baglered */
+  --bar-red: #a13131;        /* listen och arket */
+  --dark-red: #8b2727;       /* bagledarkred */
+  --paper: #f6f0dd;          /* menyns bakgrund */
+  --night: #1a0a08;
+  --handle: rgba(242, 232, 204, 0.6);
+  --divider-light: rgba(255, 245, 204, 0.3);
+
+  --font-display: "bouba-round-variable", "bouba-round", "Bouba Round Var", "Bouba Round", ui-rounded, "Arial Rounded MT Bold", system-ui, sans-serif;
+  --font-text: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --vh: 100vh;
+  --pad: 16px;
+  --bar-h: 72px;
+  --rail-open: 100px;        /* arkets överkant när det är öppet */
+  --grip-h: 45px;
+  --logo-w: 123.05px;
+  --logo-h: 57.6px;
+  --logo-sink: 4px;          /* hjulen vilar en bit ner i listen */
+  --shade-h: 120px;
+  --shade-to: 0.6;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-sheet: 560ms;
+}
+
+@supports (height: 100dvh) {
+  :root { --vh: 100dvh; }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --pad: 48px;
+    --bar-h: 90px;
+    --rail-open: clamp(260px, 27.3vh, 305px);
+    --grip-h: 44px;
+    --logo-w: 205.09px;
+    --logo-h: 96px;
+    --logo-sink: 6px;
+    --shade-h: 140px;
+    --shade-to: 0.4;
+  }
+}
+
+/* ---------- Grund ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--red);
+  font-family: var(--font-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+h1, h2, h3, p, ul, dl, dd { margin: 0; padding: 0; }
+ul { list-style: none; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible { outline: 3px solid var(--cream); outline-offset: 3px; }
+.menu :focus-visible, .sheet__scroll:focus-visible { outline-color: var(--red); }
+.sheet__scroll:focus-visible { outline-offset: -3px; }
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--red);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.skip-link:focus { top: 16px; }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--night);
+}
+
+/* Bildraden: som Apollo Bagels bildkolumner, fast liggande och på en rad. Bilderna beskärs
+   inte. Varje bild är en hel skärmhöjd och så bred som sitt format, så liggande och stående
+   bilder kan blandas. main.js flyttar raden: jämn takt åt vänster (50 px/s), och när man
+   scrollar eller sveper följer bilderna med, som hos Apollo Bagels. */
+.hero__track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+}
+
+.hero__set { display: flex; flex: none; height: 100%; }
+
+.hero__tile {
+  display: block;
+  flex: none;
+  height: 100%;
+}
+
+.hero__tile img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: none;
+}
+
+.js .hero__track { will-change: transform; }
+
+.hero::after {                  /* mobilens svaga mörkning */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+@media (min-width: 768px) {
+  .hero::after { content: none; }
+}
+
+/* ---------- Knapparna Meny och Visit us ---------- */
+
+.topbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.nav {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 27.27px);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.nav__btn {
+  display: grid;
+  place-items: center;
+  width: 159.32px;
+  height: 45.73px;
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: var(--red);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
+  font-size: 24.676px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms var(--ease);
+}
+
+.nav__btn:hover { transform: translateY(-1px); }
+.nav__btn:active { transform: translateY(1px); }
+
+.nav__btn[aria-expanded="true"] {
+  background: var(--cream);
+  color: var(--red);
+}
+
+@media (min-width: 768px) {
+  .nav {
+    left: auto;
+    right: 47.68px;
+    top: 48px;
+    transform: none;
+    gap: 17.27px;
+  }
+}
+
+/* ---------- Röda listen ---------- */
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--bar-h);
+  padding: 0 var(--pad);
+  background: var(--bar-red);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
+  text-transform: uppercase;
+}
+
+.bar--fixed {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100svh - var(--bar-h));
+  z-index: 20;
+}
+
+.bar__address {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.986px;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.bar__pin { flex: none; width: 16.6px; height: 23px; }
+.bar__address-wide { display: none; }
+.bar__open { display: none; }
+
+.bar__social { display: flex; align-items: center; gap: 10px; }
+.bar__social a { display: block; padding: 10px 0; }
+.bar__social a:hover, .bar__address:hover { opacity: 0.85; }
+.icon-instagram { width: 23px; height: 23px; }
+.icon-tiktok { width: 17.7px; height: 23px; }
+
+.bar--in-sheet { display: flex; }
+
+@media (min-width: 768px) {
+  .bar--in-sheet { display: none; }
+
+  .bar__address {
+    flex: 1 1 0;
+    gap: 12px;
+    font-size: 19px;
+    letter-spacing: 0.04em;
+  }
+  .bar__pin { width: 17.3px; height: 24px; }
+  .bar__address-wide { display: inline; }
+  .bar__address-narrow { display: none; }
+
+  .bar__open {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 12px;
+    font-size: 19px;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .bar__wheel { width: 10px; height: 10px; }
+
+  .bar__social { flex: 1 1 0; justify-content: flex-end; gap: 9.6px; }
+  .icon-instagram { width: 29px; height: 29px; }
+  .icon-tiktok { width: 22.3px; height: 29px; }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .bar__address, .bar__open { font-size: 16px; }
+}
+
+/* ---------- Arket (menyn och Visit us) ---------- */
+
+.sheet { position: relative; background: var(--paper); }
+.sheet__grip { display: none; }
+.sheet__scroll { outline: none; }
+.rider { display: none; }
+
+.menu {
+  display: grid;
+  gap: 64px;
+  max-width: 1728px;
+  margin: 0 auto;
+  padding: 40px 16px 56px;
+  background: var(--paper);
+}
+
+.menu-group__title {
+  margin-bottom: 32px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variation-settings: "wght" 900;
+  font-size: clamp(44px, 14.36vw, 56px);
+  line-height: 1.36;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.menu-group__body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.category { break-inside: avoid; }
+
+.category__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--red);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wght" 700;
+  font-size: 19px;
+  line-height: 1.37;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.price { flex: none; white-space: nowrap; }
+
+.items { display: flex; flex-direction: column; gap: 16px; }
+
+.item__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wght" 700;
+  font-size: 16px;
+  line-height: 1.37;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.item__desc {
+  margin-top: 2px;
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-variation-settings: normal;
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-variation-settings: normal;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+
+/* Desktopmenyn: i Figma står kolumnerna fritt med en osynlig extra rubrik.
+   Här har Drinks en rubrik över två jämnt fördelade kolumner, och alla
+   kategorirubriker börjar på samma linje. */
+@media (min-width: 768px) {
+  .menu {
+    gap: 64px 48px;
+    padding: 64px var(--pad) 96px;
+  }
+
+  .menu-group__title {
+    margin-bottom: 40px;
+    /* Så stor som Figma (88 px) men aldrig bredare än sin kolumn. */
+    font-size: clamp(56px, calc((100vw - 192px) / 17), 88px);
+  }
+
+  .menu-group__body {
+    display: block;
+    columns: 2;
+    column-gap: 48px;
+  }
+
+  .category { margin-bottom: 40px; }
+  .category:last-child { margin-bottom: 0; }
+  .category__head { padding-bottom: 8px; }
+}
+
+@media (min-width: 1200px) {
+  .menu { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .menu-group--bagels { grid-column: 1; }
+  .menu-group--drinks { grid-column: 2 / 4; }
+  .menu-group--bagels .menu-group__body { columns: 1; }
+}
+
+/* ---------- Visit us ---------- */
+
+.visit {
+  padding: 40px 16px 36px;
+  background: var(--bar-red);
+  color: var(--cream);
+}
+
+.visit__inner {
+  max-width: 1632px;
+  margin: 0 auto;
+}
+
+.visit__intro { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+
+.visit__title {
+  max-width: 264px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
+  font-size: 34.1px;
+  line-height: 1.06;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.visit__email {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-variation-settings: "wght" 300;
+  font-size: 15.2px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.visit__email:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.visit__hours { margin-top: 54px; }
+
+.hours {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-family: var(--font-display);
+  font-size: 16.15px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hours__row { display: flex; align-items: baseline; gap: 13.6px; }
+.hours dt { flex: none; width: 124px; font-weight: 500; font-variation-settings: "wght" 500; }
+.hours dd { font-weight: 300; font-variation-settings: "wght" 300; white-space: nowrap; }
+.hours--short { display: none; }
+
+@media (min-width: 768px) {
+  .visit {
+    min-height: 424px;
+    padding: 56px var(--pad);
+  }
+
+  .visit__inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 48px;
+  }
+
+  .visit__intro { width: 463px; max-width: 60%; gap: 24px; }
+  .visit__title { max-width: 426px; font-size: 55px; }
+  .visit__email { font-size: 19px; }
+  .visit__hours { margin-top: 0; }
+
+  .hours--long { display: none; }
+  .hours--short {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    font-size: 19px;
+  }
+  .hours--short .hours__row { gap: 16px; }
+  .hours--short dt { width: 96px; }
+}
+
+/* ---------- Andra restauranger ---------- */
+
+.others {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 16px 32px;
+  background: var(--dark-red);
+  color: var(--cream);
+}
+
+.others__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
+  font-size: 19.741px;
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.others__list { display: flex; align-items: center; }
+.others__item { display: flex; align-items: center; }
+
+.others__item + .others__item::before {
+  content: "";
+  flex: none;
+  width: 1px;
+  height: 17.6px;
+  background: var(--divider-light);
+}
+
+.others__link {
+  display: grid;
+  place-items: center;
+  width: 116.16px;
+  height: 31.68px;
+  transition: opacity 200ms ease;
+}
+.others__link:hover { opacity: 0.8; }
+
+/* Loggorna är satta som i Figma: delarna ligger på samma platser i procent,
+   så de skalar ihop mellan mobil (0,44) och desktop (1,0). */
+.logo { position: relative; display: block; }
+.logo img { position: absolute; max-width: none; }
+
+.logo--cucina { width: 88px; aspect-ratio: 200 / 32.55; }
+.logo--cucina img:nth-child(1) { left: 0; top: 0; width: 49.06%; height: 61.91%; }
+.logo--cucina img:nth-child(2) { left: 54.38%; top: 12.91%; width: 45.62%; height: 87.09%; }
+
+.logo--danderyd { width: 40.13px; aspect-ratio: 91.21 / 62; }
+.logo--danderyd img:nth-child(1) { left: 0; top: 19.39%; width: 100%; height: 80.61%; }
+.logo--danderyd img:nth-child(2) { left: 19.14%; top: 0; width: 59.66%; height: 9%; }
+
+.logo--taameya { width: 73.95px; aspect-ratio: 168.07 / 50; }
+.logo--taameya img { inset: 0; width: 100%; height: 100%; }
+
+@media (min-width: 768px) {
+  .others { gap: 32px; padding: 40px var(--pad) 48px; }
+  .others__title { font-size: 24.676px; }
+  .others__item + .others__item::before { height: 40px; }
+  .others__link { width: 264px; height: 72px; }
+  .logo--cucina { width: 200px; }
+  .logo--danderyd { width: 91.21px; }
+  .logo--taameya { width: 168.07px; }
+}
+
+/* =========================================================
+   Med JavaScript: hela sidan är en skärm. Arket glider upp
+   nerifrån och man scrollar inne i det.
+   ========================================================= */
+
+.js body { overflow: hidden; overscroll-behavior: none; }
+
+.js .page {
+  --rail: calc(var(--vh) - var(--bar-h));   /* stängt: arkets överkant ligger vid listen */
+}
+.js .page.is-open {
+  --rail: var(--rail-open);
+  --logo-sink: 0px;
+}
+
+.js .hero { position: fixed; inset: 0; height: auto; }
+.js .topbar { position: fixed; inset: 0; height: auto; }
+
+.js .bar--fixed {
+  position: fixed;
+  top: auto;
+  bottom: 0;
+  transition: transform var(--t-sheet) var(--ease);
+}
+
+/* På mobil glider listen undan när arket öppnas. Arket har en egen list sist. */
+@media (max-width: 767px) {
+  .js .page.is-open .bar--fixed { transform: translate3d(0, 100%, 0); }
+}
+
+.js .sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: calc(var(--vh) - var(--rail-open));
+  background: var(--bar-red);
+  transform: translate3d(0, var(--rail), 0);
+  transition: transform var(--t-sheet) var(--ease);
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .js .sheet { height: calc(var(--vh) - var(--rail-open) - var(--bar-h)); }
+}
+
+.js .sheet__grip {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: var(--grip-h);
+  background: var(--bar-red);
+}
+
+.js .sheet__close {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sheet__handle {
+  display: block;
+  width: 44px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--handle);
+}
+
+.sheet__chevron { display: none; width: 20px; height: 20px; }
+
+@media (min-width: 768px) {
+  .js .sheet__grip { justify-content: flex-end; padding-right: 47.68px; }
+  .js .sheet__close { width: 159.32px; touch-action: auto; }
+  .sheet__handle { display: none; }
+  .sheet__chevron { display: block; transition: transform 200ms var(--ease); }
+  .sheet__close:hover .sheet__chevron { transform: translateY(2px); }
+}
+
+.js .sheet__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background: var(--paper);
+}
+
+.js .sheet__content { display: flex; flex-direction: column; min-height: 100%; }
+.js .sheet__content > * { flex: none; }
+
+/* Visit us: samma delar som under menyn, men utan menyn. */
+.js .sheet[data-mode="visit"] .menu { display: none; }
+.js .sheet[data-mode="visit"] .visit { flex: 1 0 auto; }
+.js .sheet[data-mode="visit"] .sheet__scroll { background: var(--bar-red); }
+
+/* Bara opacitet: en förflyttning skulle göra innehållet tillfälligt scrollbart. */
+.sheet__content.is-swapping { animation: swap 320ms ease-out; }
+@keyframes swap {
+  from { opacity: 0; }
+}
+
+/* Gradienten och loggan följer arkets överkant (--rail). */
+.js .rider {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
+  pointer-events: none;
+  transform: translate3d(0, var(--rail), 0);
+  transition: transform var(--t-sheet) var(--ease);
+  will-change: transform;
+}
+.js .rider--shade { z-index: 2; }
+.js .rider--logo { z-index: 40; }
+
+.rider__shade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--shade-h);
+  background: linear-gradient(to bottom, rgba(26, 10, 8, 0), rgba(26, 10, 8, var(--shade-to)));
+}
+
+.rider__logo {
+  position: absolute;
+  left: var(--pad);
+  bottom: calc(-1 * var(--logo-sink));
+  width: var(--logo-w);
+  height: var(--logo-h);
+  max-width: none;
+  transform: translate3d(var(--roll-x, 0px), 0, 0);
+  transition: transform 140ms linear, bottom var(--t-sheet) var(--ease);
+}
+
+.js .page.is-rolling .rider__logo {
+  transition: transform 900ms var(--ease), bottom var(--t-sheet) var(--ease);
+}
+
+/* Loggan är en inbäddad SVG. Hjulen och masken som skär ut mellanrummet runt dem har
+   klassen wheel-turn och roterar lika långt som loggan rullar (--wheel-rot sätts i main.js),
+   med samma övergång som förflyttningen, så att hjul, mask och rörelse håller takten.
+   Vridpunkterna är mitten av varje hjul i loggans koordinater (viewBox 205,09 × 96). */
+.logo-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.wheel-turn {
+  transform-box: view-box;
+  transform: rotate(var(--wheel-rot, 0deg));
+  transition: transform 140ms linear;
+}
+
+.wheel-turn--b { transform-origin: 36.985px 84.125px; }
+.wheel-turn--s { transform-origin: 168.065px 83.645px; }
+
+.js .page.is-rolling .wheel-turn { transition: transform 900ms var(--ease); }
+
+/* Medan man drar i arket följer allt fingret direkt. */
+.js .page.is-dragging .sheet,
+.js .page.is-dragging .rider,
+.js .page.is-dragging .bar--fixed,
+.js .page.no-anim .sheet,
+.js .page.no-anim .rider,
+.js .page.no-anim .rider__logo,
+.js .page.no-anim .wheel-turn,
+.js .page.no-anim .bar--fixed { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-sheet: 1ms; }
+  .rider__logo,
+  .js .page.is-rolling .rider__logo,
+  .wheel-turn,
+  .js .page.is-rolling .wheel-turn { transition: none; }
+  .nav__btn { transition: none; }
+  .sheet__content.is-swapping { animation: none; }
+}
