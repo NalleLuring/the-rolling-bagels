@@ -401,7 +401,7 @@
     const day = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Stockholm', weekday: 'short' }).format(new Date());
     const [from, to] = day === 'Sat' || day === 'Sun' ? HOURS.weekend : HOURS.weekday;
     document.querySelectorAll('[data-open-today]').forEach((node) => {
-      node.textContent = `Open today ${from}–${to}`;
+      node.textContent = `Öppet idag ${from}–${to}`;
     });
   }
 
