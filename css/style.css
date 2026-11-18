@@ -18,11 +18,11 @@
 
   --vh: 100vh;
   --pad: 16px;
-  --bar-h: 72px;
-  --rail-open: 100px;        /* arkets överkant när det är öppet */
-  --grip-h: 45px;
-  --logo-w: 123.05px;
-  --logo-h: 57.6px;
+  --bar-h: 58px;
+  --rail-open: 72px;         /* arkets överkant när det är öppet */
+  --grip-h: 40px;
+  --logo-w: 92.29px;         /* 75 % av Figma (123,05 × 57,6) */
+  --logo-h: 43.2px;
   --logo-sink: 4px;          /* hjulen vilar en bit ner i listen */
   --shade-h: 120px;
   --shade-to: 0.6;
@@ -38,11 +38,12 @@
 @media (min-width: 768px) {
   :root {
     --pad: 48px;
-    --bar-h: 90px;
-    --rail-open: clamp(260px, 27.3vh, 305px);
-    --grip-h: 44px;
-    --logo-w: 205.09px;
-    --logo-h: 96px;
+    --bar-h: 66px;
+    /* Under knapparna Meny och Besök oss (de slutar ca 203 px ner). */
+    --rail-open: 216px;
+    --grip-h: 40px;
+    --logo-w: 153.82px;      /* 75 % av Figma (205,09 × 96) */
+    --logo-h: 72px;
     --logo-sink: 6px;
     --shade-h: 140px;
     --shade-to: 0.4;
@@ -246,21 +247,21 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12.986px;
+  font-size: 12px;
   line-height: 1.4;
+  letter-spacing: 0.04em;
   text-decoration: none;
   white-space: nowrap;
 }
 
-.bar__pin { flex: none; width: 16.6px; height: 23px; }
-.bar__address-wide { display: none; }
+.bar__pin { flex: none; width: 13px; height: 18px; }
 .bar__open { display: none; }
 
 .bar__social { display: flex; align-items: center; gap: 10px; }
-.bar__social a { display: block; padding: 10px 0; }
+.bar__social a, .bar__icon { display: block; padding: 10px 0; }
 .bar__social a:hover, .bar__address:hover { opacity: 0.85; }
-.icon-instagram { width: 23px; height: 23px; }
-.icon-tiktok { width: 17.7px; height: 23px; }
+.icon-instagram { width: 20px; height: 20px; }
+.icon-tiktok { width: 15.4px; height: 20px; }
 
 .bar--in-sheet { display: flex; }
 
@@ -269,33 +270,30 @@ ul { list-style: none; }
 
   .bar__address {
     flex: 1 1 0;
-    gap: 12px;
-    font-size: 19px;
-    letter-spacing: 0.04em;
+    gap: 10px;
+    font-size: 15px;
   }
-  .bar__pin { width: 17.3px; height: 24px; }
-  .bar__address-wide { display: inline; }
-  .bar__address-narrow { display: none; }
+  .bar__pin { width: 14.4px; height: 20px; }
 
   .bar__open {
     display: flex;
     flex: none;
     align-items: center;
     gap: 12px;
-    font-size: 19px;
+    font-size: 15px;
     line-height: 1.4;
     letter-spacing: 0.04em;
     white-space: nowrap;
   }
-  .bar__wheel { width: 10px; height: 10px; }
+  .bar__wheel { width: 8px; height: 8px; }
 
-  .bar__social { flex: 1 1 0; justify-content: flex-end; gap: 9.6px; }
-  .icon-instagram { width: 29px; height: 29px; }
-  .icon-tiktok { width: 22.3px; height: 29px; }
+  .bar__social { flex: 1 1 0; justify-content: flex-end; gap: 9px; }
+  .icon-instagram { width: 24px; height: 24px; }
+  .icon-tiktok { width: 18.5px; height: 24px; }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-  .bar__address, .bar__open { font-size: 16px; }
+  .bar__address, .bar__open { font-size: 13px; }
 }
 
 /* ---------- Arket (menyn och Visit us) ---------- */
@@ -319,8 +317,8 @@ ul { list-style: none; }
   font-family: var(--font-display);
   font-weight: 900;
   font-variation-settings: "wght" 900;
-  font-size: clamp(44px, 14.36vw, 56px);
-  line-height: 1.36;
+  font-size: 36px;
+  line-height: 1.2;
   letter-spacing: -0.04em;
   text-transform: uppercase;
   color: var(--red);
@@ -356,6 +354,10 @@ ul { list-style: none; }
 .items { display: flex; flex-direction: column; gap: 16px; }
 
 .item__name {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
   font-family: var(--font-display);
   font-weight: 700;
   font-variation-settings: "wght" 700;
@@ -397,9 +399,8 @@ ul { list-style: none; }
   }
 
   .menu-group__title {
-    margin-bottom: 40px;
-    /* Så stor som Figma (88 px) men aldrig bredare än sin kolumn. */
-    font-size: clamp(56px, calc((100vw - 192px) / 17), 88px);
+    margin-bottom: 32px;
+    font-size: 48px;
   }
 
   .menu-group__body {
@@ -436,13 +437,12 @@ ul { list-style: none; }
 .visit__intro { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
 
 .visit__title {
-  max-width: 264px;
   font-family: var(--font-display);
-  font-weight: 500;
-  font-variation-settings: "wght" 500;
-  font-size: 34.1px;
-  line-height: 1.06;
-  letter-spacing: 0.04em;
+  font-weight: 900;
+  font-variation-settings: "wght" 900;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
   text-transform: uppercase;
 }
 
@@ -457,7 +457,7 @@ ul { list-style: none; }
 }
 .visit__email:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-.visit__hours { margin-top: 54px; }
+.visit__hours { margin-top: 40px; }
 
 .hours {
   display: flex;
@@ -470,14 +470,13 @@ ul { list-style: none; }
   text-transform: uppercase;
 }
 
-.hours__row { display: flex; align-items: baseline; gap: 13.6px; }
-.hours dt { flex: none; width: 124px; font-weight: 500; font-variation-settings: "wght" 500; }
+.hours__row { display: flex; align-items: baseline; gap: 16px; }
+.hours dt { flex: none; width: 96px; font-weight: 500; font-variation-settings: "wght" 500; }
 .hours dd { font-weight: 300; font-variation-settings: "wght" 300; white-space: nowrap; }
-.hours--short { display: none; }
 
 @media (min-width: 768px) {
   .visit {
-    min-height: 424px;
+    min-height: 320px;
     padding: 56px var(--pad);
   }
 
@@ -488,20 +487,12 @@ ul { list-style: none; }
     gap: 48px;
   }
 
-  .visit__intro { width: 463px; max-width: 60%; gap: 24px; }
-  .visit__title { max-width: 426px; font-size: 55px; }
+  .visit__intro { max-width: 60%; gap: 24px; }
+  .visit__title { font-size: 48px; }
   .visit__email { font-size: 19px; }
   .visit__hours { margin-top: 0; }
 
-  .hours--long { display: none; }
-  .hours--short {
-    display: flex;
-    align-items: flex-end;
-    gap: 12px;
-    font-size: 19px;
-  }
-  .hours--short .hours__row { gap: 16px; }
-  .hours--short dt { width: 96px; }
+  .hours { align-items: flex-end; gap: 12px; font-size: 19px; }
 }
 
 /* ---------- Andra restauranger ---------- */
@@ -510,8 +501,8 @@ ul { list-style: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 28px 16px 32px;
+  gap: 12px;
+  padding: 18px 16px 20px;
   background: var(--dark-red);
   color: var(--cream);
 }
@@ -520,8 +511,9 @@ ul { list-style: none; }
   font-family: var(--font-display);
   font-weight: 500;
   font-variation-settings: "wght" 500;
-  font-size: 19.741px;
+  font-size: 13px;
   line-height: 1.4;
+  letter-spacing: 0.04em;
   text-align: center;
   text-transform: uppercase;
 }
@@ -563,13 +555,13 @@ ul { list-style: none; }
 .logo--taameya img { inset: 0; width: 100%; height: 100%; }
 
 @media (min-width: 768px) {
-  .others { gap: 32px; padding: 40px var(--pad) 48px; }
-  .others__title { font-size: 24.676px; }
-  .others__item + .others__item::before { height: 40px; }
-  .others__link { width: 264px; height: 72px; }
-  .logo--cucina { width: 200px; }
-  .logo--danderyd { width: 91.21px; }
-  .logo--taameya { width: 168.07px; }
+  .others { gap: 16px; padding: 24px var(--pad) 28px; }
+  .others__title { font-size: 15px; }
+  .others__item + .others__item::before { height: 26px; }
+  .others__link { width: 176px; height: 48px; }
+  .logo--cucina { width: 130px; }
+  .logo--danderyd { width: 59.3px; }
+  .logo--taameya { width: 109.25px; }
 }
 
 /* =========================================================

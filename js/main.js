@@ -134,9 +134,11 @@
 
   /* ---------- Loggan som rullar ---------- */
 
+  // På desktop stannar loggan före knapparna Meny och Besök oss (159 px breda) plus luft.
   function travel() {
     const pad = desktop.matches ? 48 : 16;
-    return Math.max(0, document.documentElement.clientWidth - 2 * pad - logo.offsetWidth);
+    const nav = desktop.matches ? 159.32 + 32 : 0;
+    return Math.max(0, document.documentElement.clientWidth - 2 * pad - logo.offsetWidth - nav);
   }
 
   function progress() {
