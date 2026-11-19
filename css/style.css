@@ -27,6 +27,8 @@
   --shade-h: 120px;
   --shade-to: 0.6;
 
+  --nav-w: 188px;            /* Meny och Besök oss, lika breda med luft runt texten */
+
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --t-sheet: 560ms;
 }
@@ -182,7 +184,7 @@ ul { list-style: none; }
 .nav__btn {
   display: grid;
   place-items: center;
-  width: 159.32px;
+  width: var(--nav-w);
   height: 45.73px;
   border: 2px solid var(--cream);
   border-radius: 999px;
@@ -638,7 +640,7 @@ ul { list-style: none; }
 
 @media (min-width: 768px) {
   .js .sheet__grip { justify-content: flex-end; padding-right: 47.68px; }
-  .js .sheet__close { width: 159.32px; touch-action: auto; }
+  .js .sheet__close { width: var(--nav-w); touch-action: auto; }
   .sheet__handle { display: none; }
   .sheet__chevron { display: block; transition: transform 200ms var(--ease); }
   .sheet__close:hover .sheet__chevron { transform: translateY(2px); }
