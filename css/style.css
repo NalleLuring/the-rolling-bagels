@@ -18,7 +18,7 @@
 
   --vh: 100vh;
   --pad: 16px;
-  --bar-h: 58px;
+  --bar-h: 64px;             /* två rader på mobil: adressen och Open today */
   --rail-open: 80px;         /* arkets överkant när det är öppet */
   --grip-h: 40px;
   --logo-w: 110.75px;        /* 90 % av Figma (123,05 × 57,6) */
@@ -41,8 +41,8 @@
   :root {
     --pad: 48px;
     --bar-h: 66px;
-    /* Under knapparna Meny och Besök oss (de slutar ca 203 px ner). */
-    --rail-open: 216px;
+    /* Under knapparna Menu, About och Order (de slutar ca 220 px ner). */
+    --rail-open: 236px;
     --grip-h: 40px;
     --logo-w: 153.82px;      /* 75 % av Figma (205,09 × 96) */
     --logo-h: 72px;
@@ -266,6 +266,32 @@ ul { list-style: none; }
 
 .bar--in-sheet { display: flex; }
 
+/* Mobil: Open today på en egen rad under adressen, med texten i linje med adressen.
+   På samma rad ryms den inte bredvid adressen och Instagram. */
+@media (max-width: 767px) {
+  .bar,
+  .bar--in-sheet {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-content: center;
+    column-gap: 16px;
+    row-gap: 2px;
+  }
+  .bar__address { grid-column: 1; grid-row: 1; line-height: 1.3; }
+  .bar__open {
+    display: block;
+    grid-column: 1;
+    grid-row: 2;
+    padding-left: 25.2px;      /* nålen (15,2 px) + mellanrummet (10 px) */
+    font-size: 14px;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .bar__wheel { display: none; }
+  .bar__social { grid-column: 2; grid-row: 1 / 3; }
+}
+
 @media (min-width: 768px) {
   .bar--in-sheet { display: none; }
 
@@ -424,7 +450,7 @@ ul { list-style: none; }
   .menu-group--bagels .menu-group__body { columns: 1; }
 }
 
-/* ---------- Knappar i arket (Order online, Email us) ---------- */
+/* ---------- Knapp i arket (Order online i Visit us) ---------- */
 
 .btn {
   display: inline-grid;
@@ -463,7 +489,6 @@ ul { list-style: none; }
   justify-content: space-between;
   gap: 16px;
   padding: 10px 16px;
-  border-bottom: 1px solid var(--red);
   background: var(--paper);
 }
 
@@ -484,9 +509,6 @@ ul { list-style: none; }
   white-space: nowrap;
 }
 .about__link:hover, .about__link[aria-current="true"] { border-bottom-color: currentColor; }
-
-/* På mobil ryms inte knappen bredvid genvägarna. Order online finns i Visit us. */
-.about__order { display: none; }
 
 .about-sec { padding: 40px 16px 48px; scroll-margin-top: 56px; }
 .about-sec--catering { border-top: 1px solid var(--red); background: var(--cream); }
@@ -516,27 +538,22 @@ ul { list-style: none; }
   font-weight: 500;
   font-variation-settings: "wght" 500;
   font-size: 22px;
-  line-height: 1.3;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
-.about-sec__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 8px; }
-
+/* Mejladressen ser ut som brödtexten, med en linje under som en länk. */
 .about-sec__mail {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-variation-settings: "wght" 300;
-  font-size: 15.2px;
-  line-height: 1.4;
-  letter-spacing: 0.04em;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
-.about-sec__mail:hover { text-decoration: underline; text-underline-offset: 4px; }
+.about-sec__mail:hover { text-decoration-thickness: 2px; }
 
 @media (min-width: 768px) {
   .about__nav { padding: 14px var(--pad); }
   .about__links { gap: 36px; }
   .about__link { font-size: 19px; }
-  .about__order { display: inline-grid; }
 
   .about-sec { padding: 64px var(--pad) 80px; scroll-margin-top: 72px; }
   .about-sec__title { margin-bottom: 32px; font-size: 48px; }
@@ -581,7 +598,7 @@ ul { list-style: none; }
   font-family: var(--font-display);
   font-weight: 300;
   font-variation-settings: "wght" 300;
-  font-size: 15.2px;
+  font-size: 17px;            /* gemener: lite större än öppettidernas versaler, så att de ser lika stora ut */
   line-height: 1.4;
   letter-spacing: 0.04em;
   text-decoration: none;
@@ -590,7 +607,8 @@ ul { list-style: none; }
 
 .visit__contact { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 
-.visit__hours { margin-top: 40px; }
+/* Öppettiderna med Order online under. */
+.visit__hours { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; margin-top: 40px; }
 
 .hours {
   display: flex;
@@ -622,8 +640,8 @@ ul { list-style: none; }
 
   .visit__intro { max-width: 60%; gap: 24px; }
   .visit__title { font-size: 48px; }
-  .visit__email { font-size: 19px; }
-  .visit__hours { margin-top: 0; }
+  .visit__email { font-size: 21px; }
+  .visit__hours { align-items: flex-end; margin-top: 0; }
 
   .hours { align-items: flex-end; gap: 12px; font-size: 19px; }
 }
@@ -664,6 +682,7 @@ ul { list-style: none; }
 
 .others__link {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);   /* så att loggans max-width räknas mot rutans bredd */
   place-items: center;
   /* Tre i bredd ryms även på de smalaste telefonerna (320 px). */
   width: min(118px, calc((100vw - 34px) / 3));
@@ -674,7 +693,7 @@ ul { list-style: none; }
 .others__link:hover { opacity: 0.8; }
 
 /* Varje logga är en enda bild, så att hela loggan är en länk. */
-.logo { position: relative; display: block; max-width: calc(100% - 8px); }
+.logo { position: relative; display: block; max-width: calc(100% - 8px); justify-self: center; }
 .logo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
 
 .logo--cucina { width: 104px; aspect-ratio: 200 / 32.55; }
