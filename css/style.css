@@ -296,7 +296,7 @@ ul { list-style: none; }
   .bar__address, .bar__open { font-size: 13px; }
 }
 
-/* ---------- Arket (menyn och Visit us) ---------- */
+/* ---------- Arket (Menu och About) ---------- */
 
 .sheet { position: relative; background: var(--paper); }
 .sheet__grip { display: none; }
@@ -424,9 +424,137 @@ ul { list-style: none; }
   .menu-group--bagels .menu-group__body { columns: 1; }
 }
 
+/* ---------- Knappar i arket (Order online, Email us) ---------- */
+
+.btn {
+  display: inline-grid;
+  place-items: center;
+  height: 42px;
+  padding: 0 22px;
+  border: 2px solid var(--red);
+  border-radius: 999px;
+  background: var(--red);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
+  font-size: 17px;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.btn:hover { background: transparent; color: var(--red); }
+
+/* På den röda Visit us-ytan: samma som knapparna Menu och About. */
+.btn--on-red { border-color: var(--cream); }
+.btn--on-red:hover { background: var(--cream); color: var(--red); }
+
+/* ---------- About: About us och Catering ---------- */
+
+.about { background: var(--paper); }
+
+/* Genvägarna överst. Med JavaScript följer raden med när man scrollar och visar var man är. */
+.about__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--red);
+  background: var(--paper);
+}
+
+.about__links { display: flex; gap: 22px; }
+
+.about__link {
+  display: block;
+  padding: 8px 0 5px;
+  border-bottom: 2px solid transparent;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wght" 700;
+  font-size: 15px;
+  line-height: 1.37;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.about__link:hover, .about__link[aria-current="true"] { border-bottom-color: currentColor; }
+
+/* På mobil ryms inte knappen bredvid genvägarna. Order online finns i Visit us. */
+.about__order { display: none; }
+
+.about-sec { padding: 40px 16px 48px; scroll-margin-top: 56px; }
+.about-sec--catering { border-top: 1px solid var(--red); background: var(--cream); }
+
+.about-sec__title {
+  margin-bottom: 24px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-variation-settings: "wght" 900;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.about-sec__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 40rem;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.about-sec__lead {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.about-sec__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 8px; }
+
+.about-sec__mail {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-variation-settings: "wght" 300;
+  font-size: 15.2px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.about-sec__mail:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (min-width: 768px) {
+  .about__nav { padding: 14px var(--pad); }
+  .about__links { gap: 36px; }
+  .about__link { font-size: 19px; }
+  .about__order { display: inline-grid; }
+
+  .about-sec { padding: 64px var(--pad) 80px; scroll-margin-top: 72px; }
+  .about-sec__title { margin-bottom: 32px; font-size: 48px; }
+  .about-sec__body { font-size: 18px; }
+  .about-sec__lead { font-size: 28px; }
+}
+
+/* Samma tre kolumner som menyn: rubriken i den första, texten över de två andra. */
+@media (min-width: 1200px) {
+  .about-sec { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 48px; }
+  .about-sec__title { grid-column: 1; }
+  .about-sec__body { grid-column: 2 / 4; max-width: 46rem; }
+}
+
 /* ---------- Visit us ---------- */
 
 .visit {
+  scroll-margin-top: 56px;
   padding: 40px 16px 36px;
   background: var(--bar-red);
   color: var(--cream);
@@ -459,6 +587,8 @@ ul { list-style: none; }
   text-decoration: none;
 }
 .visit__email:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.visit__contact { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 
 .visit__hours { margin-top: 40px; }
 
@@ -669,10 +799,13 @@ ul { list-style: none; }
   .js .sheet__end { min-height: calc(var(--vh) - var(--rail-open) - var(--grip-h)); }
 }
 
-/* Besök oss: samma delar som under menyn, men utan menyn. */
-.js .sheet[data-mode="visit"] .menu { display: none; }
-.js .sheet[data-mode="visit"] .sheet__end { flex: 1 0 auto; }
-.js .sheet[data-mode="visit"] .sheet__scroll { background: var(--bar-red); }
+/* Menu: menyn följd av Visit us och de andra restaurangerna.
+   About: About us, Catering och samma slut, men utan menyn.
+   Utan JavaScript syns allt efter varandra. */
+.js .sheet[data-mode="menu"] .about { display: none; }
+.js .sheet[data-mode="about"] .menu { display: none; }
+.js .sheet[data-mode="about"] .sheet__end { flex: 1 0 auto; }
+.js .about__nav { position: sticky; top: 0; z-index: 3; }
 
 /* Bara opacitet: en förflyttning skulle göra innehållet tillfälligt scrollbart. */
 .sheet__content.is-swapping { animation: swap 320ms ease-out; }
@@ -765,6 +898,6 @@ ul { list-style: none; }
   .js .page.is-rolling .rider__logo,
   .wheel-turn,
   .js .page.is-rolling .wheel-turn { transition: none; }
-  .nav__btn { transition: none; }
+  .nav__btn, .btn { transition: none; }
   .sheet__content.is-swapping { animation: none; }
 }

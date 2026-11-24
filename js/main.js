@@ -1,6 +1,7 @@
 /* The Rolling Bagels: arket som glider upp nerifrån.
-   "Meny" visar menyn följd av Visit us och de andra restaurangerna.
-   "Visit us" visar samma delar utan menyn.
+   "Menu" visar menyn följd av Visit us och de andra restaurangerna.
+   "About" visar About us, Catering, Visit us och de andra restaurangerna, utan menyn,
+   med en rad genvägar överst. Varje del har en egen adress: #about-us, #catering, #visit-us.
    Loggan rullar längs arkets överkant medan man scrollar. */
 (() => {
   const page = document.querySelector('.page');
@@ -15,20 +16,56 @@
   const triggers = [...document.querySelectorAll('[data-open]')];
   const desktop = window.matchMedia('(min-width: 768px)');
 
-  const HASH = { menu: '#menu', visit: '#visit-us' };
+  const HASH = { menu: '#menu', about: '#about' };
   const OLD_MENU_HASH = '#meny';   // äldre länkar från när sajten var på svenska
+  const SECTIONS = ['about-us', 'catering', 'visit-us'];   // delarna i About, i ordning
   const HOURS = { weekday: ['08:00', '16:00'], weekend: ['09:00', '16:00'] };
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  let mode = null;          // null (stängt), 'menu' eller 'visit'
+  const aboutNav = sheet.querySelector('.about__nav');
+  const sectionLinks = [...sheet.querySelectorAll('[data-section]')];
+
+  let mode = null;          // null (stängt), 'menu' eller 'about'
   let lastTrigger = null;
   let rollTimer = 0;
   let swallowClick = false;
 
   /* ---------- Öppna och stänga ---------- */
 
-  const modeFromHash = () =>
-    Object.keys(HASH).find((key) => HASH[key] === window.location.hash) ||
-    (window.location.hash === OLD_MENU_HASH ? 'menu' : null);
+  // #menu och gamla #meny öppnar menyn. #about och delarnas adresser öppnar About
+  // (#visit-us gjorde det redan förut, så gamla länkar fungerar).
+  function fromHash() {
+    const hash = window.location.hash;
+    const section = SECTIONS.includes(hash.slice(1)) ? hash.slice(1) : null;
+    const next = Object.keys(HASH).find((key) => HASH[key] === hash) ||
+      (hash === OLD_MENU_HASH ? 'menu' : null) || (section ? 'about' : null);
+    return { next, section };
+  }
+
+  // Scrollar arket så att delen börjar precis under genvägarna.
+  function scrollToSection(id, smooth = true) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const offset = aboutNav ? aboutNav.offsetHeight : 0;
+    const top = target.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - offset;
+    scroller.scrollTo({ top: Math.max(0, top), behavior: smooth && !calm.matches ? 'smooth' : 'auto' });
+  }
+
+  // Genvägen för den del man är i är markerad.
+  function updateSections() {
+    if (mode !== 'about' || !sectionLinks.length) return;
+    const line = scroller.getBoundingClientRect().top + (aboutNav ? aboutNav.offsetHeight : 0) + 48;
+    let current = SECTIONS[0];
+    for (const id of SECTIONS) {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= line) current = id;
+    }
+    if (scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2) current = SECTIONS[SECTIONS.length - 1];
+    sectionLinks.forEach((link) => {
+      if (link.dataset.section === current) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  }
 
   function setHidden(hidden) {
     sheet.inert = hidden;
@@ -40,9 +77,12 @@
     triggers.forEach((t) => t.setAttribute('aria-expanded', String(t.dataset.open === mode)));
   }
 
-  function open(next, { fromHistory = false, focus = true } = {}) {
+  function open(next, { fromHistory = false, focus = true, section = null } = {}) {
     const switching = mode !== null && mode !== next;
-    if (mode === next) return;
+    if (mode === next) {
+      if (section) scrollToSection(section);
+      return;
+    }
     mode = next;
 
     sheet.dataset.mode = next;
@@ -50,6 +90,11 @@
     setHidden(false);
     syncTriggers();
     scroller.scrollTop = 0;
+    if (section) {
+      scrollToSection(section, false);
+      // Typsnitten från Adobe Fonts kan ändra höjderna när de laddat, så delen hamnar rätt igen.
+      if (document.fonts) document.fonts.ready.then(() => { if (mode === next) scrollToSection(section, false); });
+    }
 
     if (switching) {
       content.classList.remove('is-swapping');
@@ -58,12 +103,16 @@
     }
 
     rollSlowly();
-    requestAnimationFrame(updateRoll);
+    requestAnimationFrame(() => {
+      updateRoll();
+      updateSections();
+    });
 
     if (!fromHistory) {
       const state = { sheet: next };
-      if (switching || (history.state && history.state.sheet)) history.replaceState(state, '', HASH[next]);
-      else history.pushState(state, '', HASH[next]);
+      const url = section ? `#${section}` : HASH[next];
+      if (switching || (history.state && history.state.sheet)) history.replaceState(state, '', url);
+      else history.pushState(state, '', url);
     }
 
     if (focus) scroller.focus({ preventScroll: true });
@@ -118,16 +167,27 @@
     if (event.key === 'Escape' && mode !== null) close();
   });
 
-  // Bakåtknappen (t.ex. på Android) stänger arket, och länkar till #menu (eller gamla #meny) eller #visit-us öppnar det.
+  // Bakåtknappen (t.ex. på Android) stänger arket, och länkar till #menu, #about eller en del
+  // i About (#about-us, #catering, #visit-us) öppnar det.
   window.addEventListener('popstate', () => {
-    const next = modeFromHash();
-    if (next) open(next, { fromHistory: true, focus: false });
+    const { next, section } = fromHash();
+    if (next) open(next, { fromHistory: true, focus: false, section });
     else close({ fromHistory: true, restoreFocus: false });
   });
 
   window.addEventListener('hashchange', () => {
-    const next = modeFromHash();
-    if (next && next !== mode) open(next, { fromHistory: true });
+    const { next, section } = fromHash();
+    if (next) open(next, { fromHistory: true, section });
+  });
+
+  // Genvägarna i About scrollar inne i arket. Adressen följer med, så att den går att dela.
+  sectionLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const id = link.dataset.section;
+      scrollToSection(id);
+      history.replaceState(history.state, '', `#${id}`);
+    });
   });
 
   document.querySelector('.skip-link')?.addEventListener('click', (event) => {
@@ -138,7 +198,7 @@
 
   /* ---------- Loggan som rullar ---------- */
 
-  // På desktop stannar loggan före knapparna Meny och Besök oss, plus 32 px luft.
+  // På desktop stannar loggan före knapparna Menu och About, plus 32 px luft.
   const navEl = document.querySelector('.nav');
   function travel() {
     const pad = desktop.matches ? 48 : 16;
@@ -182,6 +242,7 @@
     requestAnimationFrame(() => {
       rollQueued = false;
       updateRoll();
+      updateSections();
     });
   }, { passive: true });
 
@@ -422,11 +483,11 @@
   setHidden(true);
   syncTriggers();
 
-  const initial = modeFromHash();
-  if (initial) {
+  const initial = fromHash();
+  if (initial.next) {
     page.classList.add('no-anim');
-    open(initial, { fromHistory: true, focus: false });
-    history.replaceState(null, '', HASH[initial]);
+    open(initial.next, { fromHistory: true, focus: false, section: initial.section });
+    history.replaceState(null, '', initial.section ? `#${initial.section}` : HASH[initial.next]);
     // Två bildrutor räcker, men i en flik i bakgrunden körs inga bildrutor, så en timer tar över.
     const settle = () => page.classList.remove('no-anim');
     requestAnimationFrame(() => requestAnimationFrame(settle));

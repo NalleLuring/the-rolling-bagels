@@ -117,7 +117,7 @@
       <h1 class="visually-hidden">The Rolling Bagels: bagels, coffee and juice at Odenplan</h1>
       <nav class="nav" aria-label="Main menu">
         <a class="nav__btn" href="#menu" data-open="menu">Menu</a>
-        <a class="nav__btn" href="#visit-us" data-open="visit">Visit us</a>
+        <a class="nav__btn" href="#about" data-open="about">About</a>
       </nav>
     </header>
 
@@ -175,7 +175,7 @@
       </div>
     </div>
 
-    <section class="sheet" id="sheet" aria-label="Menu and visitor information" data-mode="menu">
+    <section class="sheet" id="sheet" aria-label="Menu and about" data-mode="menu">
       <div class="sheet__grip">
         <button class="sheet__close" type="button" aria-label="Close">
           <span class="sheet__handle" aria-hidden="true"></span>
@@ -294,13 +294,55 @@
             </section>
           </div>
 
-          <!-- Besök oss, andra restauranger och listen: fyller minst en skärm, både efter menyn och i Besök oss. -->
+
+          <!-- About: knappen About öppnar arket utan menyn. Raden med genvägar följer med när man
+               scrollar och visar var man är. Varje del har en egen adress: #about-us, #catering och
+               #visit-us (Visit us ligger längre ner, i sheet__end, och syns också efter menyn). -->
+          <div class="about" id="about">
+            <nav class="about__nav" aria-label="About">
+              <ul class="about__links">
+                <li><a class="about__link" href="#about-us" data-section="about-us">About us</a></li>
+                <li><a class="about__link" href="#catering" data-section="catering">Catering</a></li>
+                <li><a class="about__link" href="#visit-us" data-section="visit-us">Visit us</a></li>
+              </ul>
+              <a class="btn about__order" href="https://order.baemingo.se/?s=the-rolling-bagels&amp;v=cmsfvup5ctxyb0a39lya4vc99#/order/cmsfvup5ctxyb0a39lya4vc99" target="_blank" rel="noopener">Order online</a>
+            </nav>
+
+            <section class="about-sec" id="about-us" aria-labelledby="rubrik-about-us">
+              <h2 class="about-sec__title" id="rubrik-about-us">About us</h2>
+              <div class="about-sec__body">
+                <p class="about-sec__lead">The Rolling Bagels brings together the energy of American food culture and the craftsmanship of Nordic baking traditions.</p>
+                <p>Our bagels are made from scratch using carefully selected grains of the highest quality. Naturally leavened with sourdough, slowly fermented, traditionally boiled and freshly baked, they reflect our belief that great food takes time.</p>
+                <p>Inspired by the streets of New York and grounded in Scandinavian craftsmanship, we create bold, generous flavour combinations using honest ingredients and carefully selected produce.</p>
+                <p>Beyond bagels, we serve vibrant, freshly pressed juices made to order from real fruits and vegetables, alongside exceptional specialty coffee from Lykke Kaffegårdar, who share our passion for quality, craftsmanship and responsible sourcing.</p>
+                <p>At the heart of everything we do is a simple philosophy: great-tasting food should also be good for you. Real ingredients, natural processes and no unnecessary additives. Wholesome, nourishing food without compromising on flavour.</p>
+              </div>
+            </section>
+
+            <section class="about-sec about-sec--catering" id="catering" aria-labelledby="rubrik-catering">
+              <h2 class="about-sec__title" id="rubrik-catering">Catering</h2>
+              <div class="about-sec__body">
+                <p class="about-sec__lead">Bagels for meetings, offices and events.</p>
+                <p>Tell us the date, how many guests and any wishes, and we’ll get back to you.</p>
+                <p class="about-sec__actions">
+                  <a class="btn" href="mailto:hello@therollingbagels.com?subject=Catering">Email us</a>
+                  <a class="about-sec__mail" href="mailto:hello@therollingbagels.com?subject=Catering">hello@therollingbagels.com</a>
+                </p>
+              </div>
+            </section>
+          </div>
+
+          <!-- Visit us, andra restauranger och listen: fyller minst en skärm, både efter menyn och i About. -->
           <div class="sheet__end">
           <section class="visit" id="visit-us" aria-labelledby="rubrik-visit">
             <div class="visit__inner">
               <div class="visit__intro">
-                <h2 class="visit__title" id="rubrik-visit">Freshly rolled bagels</h2>
-                <a class="visit__email" href="mailto:hello@therollingbagels.com">hello@therollingbagels.com</a>
+                <h2 class="visit__title" id="rubrik-visit">Visit us</h2>
+                <p class="visit__contact">
+                  <a class="visit__email" href="https://www.google.com/maps/search/?api=1&amp;query=Odengatan%2043%2C%20113%2051%20Stockholm" target="_blank" rel="noopener">Odengatan 43, 113 51 Stockholm</a>
+                  <a class="visit__email" href="mailto:hello@therollingbagels.com">hello@therollingbagels.com</a>
+                </p>
+                <a class="btn btn--on-red" href="https://order.baemingo.se/?s=the-rolling-bagels&amp;v=cmsfvup5ctxyb0a39lya4vc99#/order/cmsfvup5ctxyb0a39lya4vc99" target="_blank" rel="noopener">Order online</a>
               </div>
               <div class="visit__hours">
                 <h3 class="visually-hidden">Opening hours</h3>
