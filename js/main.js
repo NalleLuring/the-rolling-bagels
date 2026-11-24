@@ -15,7 +15,8 @@
   const triggers = [...document.querySelectorAll('[data-open]')];
   const desktop = window.matchMedia('(min-width: 768px)');
 
-  const HASH = { menu: '#meny', visit: '#visit-us' };
+  const HASH = { menu: '#menu', visit: '#visit-us' };
+  const OLD_MENU_HASH = '#meny';   // äldre länkar från när sajten var på svenska
   const HOURS = { weekday: ['08:00', '16:00'], weekend: ['09:00', '16:00'] };
 
   let mode = null;          // null (stängt), 'menu' eller 'visit'
@@ -26,7 +27,8 @@
   /* ---------- Öppna och stänga ---------- */
 
   const modeFromHash = () =>
-    Object.keys(HASH).find((key) => HASH[key] === window.location.hash) || null;
+    Object.keys(HASH).find((key) => HASH[key] === window.location.hash) ||
+    (window.location.hash === OLD_MENU_HASH ? 'menu' : null);
 
   function setHidden(hidden) {
     sheet.inert = hidden;
@@ -116,7 +118,7 @@
     if (event.key === 'Escape' && mode !== null) close();
   });
 
-  // Bakåtknappen (t.ex. på Android) stänger arket, och länkar till #meny eller #visit-us öppnar det.
+  // Bakåtknappen (t.ex. på Android) stänger arket, och länkar till #menu (eller gamla #meny) eller #visit-us öppnar det.
   window.addEventListener('popstate', () => {
     const next = modeFromHash();
     if (next) open(next, { fromHistory: true, focus: false });
@@ -408,7 +410,7 @@
     const day = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Stockholm', weekday: 'short' }).format(new Date());
     const [from, to] = day === 'Sat' || day === 'Sun' ? HOURS.weekend : HOURS.weekday;
     document.querySelectorAll('[data-open-today]').forEach((node) => {
-      node.textContent = `Öppet idag ${from}–${to}`;
+      node.textContent = `Open today ${from}–${to}`;
     });
   }
 
