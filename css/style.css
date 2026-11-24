@@ -18,7 +18,7 @@
 
   --vh: 100vh;
   --pad: 16px;
-  --bar-h: 64px;             /* två rader på mobil: adressen och Open today */
+  --bar-h: 76px;             /* två rader på mobil: adressen och Open today, med luft upp till loggan */
   --rail-open: 80px;         /* arkets överkant när det är öppet */
   --grip-h: 40px;
   --logo-w: 110.75px;        /* 90 % av Figma (123,05 × 57,6) */
@@ -276,13 +276,14 @@ ul { list-style: none; }
     align-content: center;
     column-gap: 16px;
     row-gap: 2px;
+    padding-top: 8px;          /* lite mer luft ovanför texten, så att loggan inte ligger tätt på adressen */
   }
+  .bar__pin { display: none; }
   .bar__address { grid-column: 1; grid-row: 1; line-height: 1.3; }
   .bar__open {
     display: block;
     grid-column: 1;
     grid-row: 2;
-    padding-left: 25.2px;      /* nålen (15,2 px) + mellanrummet (10 px) */
     font-size: 14px;
     line-height: 1.3;
     letter-spacing: 0.04em;
