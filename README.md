@@ -38,7 +38,7 @@ Rollback). Annars rättar du och pushar igen.
 
 - `index.html`: all text, menyn, öppettiderna och bildraden högst upp.
 - `css/style.css`: färger, typsnitt och layout för mobil och desktop.
-- `js/main.js`: arket som glider upp (Menu och Visit us), loggan som rullar och bildraden.
+- `js/main.js`: arket som glider upp (Menu och About), loggan som rullar och bildraden.
 - `images/bildspel/`: bilderna i bildraden. Kommentaren ovanför bildraden i `index.html` beskriver
   hur en ny bild läggs in. Ge en ändrad bild ett nytt filnamn, eftersom bilderna cachas i en vecka.
 - Loggan i `index.html` (blocket med `rb-gap`) är genererad och ska inte ändras för hand. Den byggs
