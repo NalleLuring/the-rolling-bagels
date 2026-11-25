@@ -3,7 +3,8 @@
 Statisk sajt i HTML, CSS och JavaScript, utan byggsteg. Byggd efter Figma-filen "Real Food Company",
 sektionen "The Rolling Bagels – Final Screens (Mobile + Desktop)".
 
-- Testadress: https://the-rolling-bagels.vercel.app (syns inte på Google)
+- Sajt: https://www.therollingbagels.com (live sedan 25 november 2026)
+- Testadress: https://the-rolling-bagels.vercel.app (samma innehåll, syns inte på Google)
 - Repo: https://github.com/NalleLuring/the-rolling-bagels
 - Vercel-projekt: https://vercel.com/nilsandersson-liveses-projects/the-rolling-bagels
 
@@ -12,8 +13,8 @@ och lägg inte ut därifrån.
 
 ## Så jobbar du
 
-Det som pushas till `main` går ut på testadressen inom någon minut, som i repona för Danderyd,
-Cucina och Non Parlo.
+Sajten är live. Det som pushas till `main` går ut på www.therollingbagels.com inom någon minut, som i
+repona för Danderyd, Cucina och Non Parlo. Titta därför lokalt innan du pushar.
 
 Första gången godkänner du inbjudan från GitHub och hämtar repot:
 `git clone https://github.com/NalleLuring/the-rolling-bagels.git ~/Developer/the-rolling-bagels`
@@ -49,3 +50,5 @@ Rollback). Annars rättar du och pushar igen.
 - Repot är publikt. Lägg aldrig lösenord, nycklar eller kunduppgifter här.
 - Typsnittet Bouba Round kommer från Adobe Fonts (kit `jgd0smg`). Lägg aldrig typsnittsfiler i repot.
 - README.md kommer inte med på sajten (den står i `.vercelignore`).
+- Domänen: A-posten för therollingbagels.com och CNAME-posten för www pekar på Vercel. Adressen utan www
+  skickar vidare till www. E-posten ligger kvar hos domänleverantören och påverkas inte av sajten.
