@@ -41,8 +41,8 @@
   :root {
     --pad: 48px;
     --bar-h: 66px;
-    /* Under knapparna Menu, About och Order (de slutar ca 220 px ner). */
-    --rail-open: 236px;
+    /* Under knapparna Menu, Order, Catering och About (de slutar ca 267 px ner). */
+    --rail-open: 284px;
     --grip-h: 40px;
     --logo-w: 153.82px;      /* 75 % av Figma (205,09 × 96) */
     --logo-h: 72px;
@@ -216,7 +216,7 @@ ul { list-style: none; }
     right: 47.68px;
     top: 48px;
     transform: none;
-    gap: 17.27px;
+    gap: 12px;
   }
 }
 
@@ -358,6 +358,32 @@ ul { list-style: none; }
 }
 
 .category { break-inside: avoid; }
+
+/* Bagels: en lång lista utan rubrik, med en linje överst som under kategorirubrikerna.
+   Den får delas mellan kolumner, men inte mitt i en rätt. */
+.category--split {
+  break-inside: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--red);
+}
+.item { break-inside: avoid; }
+
+/* Byt till glutenfritt bröd: samma stil som rätternas namn, med priset till höger. */
+.menu-note {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wght" 700;
+  font-size: 16px;
+  line-height: 1.37;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  break-inside: avoid;
+}
 
 .category__head {
   display: flex;
@@ -512,7 +538,7 @@ ul { list-style: none; }
 .about__link:hover, .about__link[aria-current="true"] { border-bottom-color: currentColor; }
 
 .about-sec { padding: 40px 16px 48px; scroll-margin-top: 56px; }
-.about-sec--catering { border-top: 1px solid var(--red); background: var(--cream); }
+.about-sec--catering { background: var(--cream); }
 
 .about-sec__title {
   margin-bottom: 24px;
@@ -822,8 +848,14 @@ ul { list-style: none; }
 /* Menu: menyn följd av Visit us och de andra restaurangerna.
    About: About us, Catering och samma slut, men utan menyn.
    Utan JavaScript syns allt efter varandra. */
-.js .sheet[data-mode="menu"] .about { display: none; }
-.js .sheet[data-mode="about"] .menu { display: none; }
+/* Varje läge visar sin egen del överst och Visit us under. */
+.js .sheet[data-mode="menu"] .about,
+.js .sheet[data-mode="menu"] .catering,
+.js .sheet[data-mode="catering"] .menu,
+.js .sheet[data-mode="catering"] .about,
+.js .sheet[data-mode="about"] .menu,
+.js .sheet[data-mode="about"] .catering { display: none; }
+.js .sheet[data-mode="catering"] .sheet__end,
 .js .sheet[data-mode="about"] .sheet__end { flex: 1 0 auto; }
 .js .about__nav { position: sticky; top: 0; z-index: 3; }
 

@@ -1,7 +1,8 @@
 /* The Rolling Bagels: arket som glider upp nerifrån.
    "Menu" visar menyn följd av Visit us och de andra restaurangerna.
-   "About" visar About us, Catering, Visit us och de andra restaurangerna, utan menyn,
-   med en rad genvägar överst. Varje del har en egen adress: #about-us, #catering, #visit-us.
+   "Catering" visar Catering följd av Visit us och de andra restaurangerna (#catering).
+   "About" visar About us, Visit us och de andra restaurangerna, utan menyn,
+   med en rad genvägar överst. Varje del har en egen adress: #about-us, #visit-us.
    Loggan rullar längs arkets överkant medan man scrollar. */
 (() => {
   const page = document.querySelector('.page');
@@ -16,24 +17,24 @@
   const triggers = [...document.querySelectorAll('[data-open]')];
   const desktop = window.matchMedia('(min-width: 768px)');
 
-  const HASH = { menu: '#menu', about: '#about' };
+  const HASH = { menu: '#menu', catering: '#catering', about: '#about' };
   const OLD_MENU_HASH = '#meny';   // äldre länkar från när sajten var på svenska
-  const SECTIONS = ['about-us', 'catering', 'visit-us'];   // delarna i About, i ordning
+  const SECTIONS = ['about-us', 'visit-us'];   // delarna i About, i ordning
   const HOURS = { weekday: ['08:00', '16:00'], weekend: ['09:00', '16:00'] };
   const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const aboutNav = sheet.querySelector('.about__nav');
   const sectionLinks = [...sheet.querySelectorAll('[data-section]')];
 
-  let mode = null;          // null (stängt), 'menu' eller 'about'
+  let mode = null;          // null (stängt), 'menu', 'catering' eller 'about'
   let lastTrigger = null;
   let rollTimer = 0;
   let swallowClick = false;
 
   /* ---------- Öppna och stänga ---------- */
 
-  // #menu och gamla #meny öppnar menyn. #about och delarnas adresser öppnar About
-  // (#visit-us gjorde det redan förut, så gamla länkar fungerar).
+  // #menu och gamla #meny öppnar menyn, #catering öppnar Catering. #about och delarnas
+  // adresser öppnar About (#visit-us gjorde det redan förut, så gamla länkar fungerar).
   function fromHash() {
     const hash = window.location.hash;
     const section = SECTIONS.includes(hash.slice(1)) ? hash.slice(1) : null;
@@ -167,8 +168,8 @@
     if (event.key === 'Escape' && mode !== null) close();
   });
 
-  // Bakåtknappen (t.ex. på Android) stänger arket, och länkar till #menu, #about eller en del
-  // i About (#about-us, #catering, #visit-us) öppnar det.
+  // Bakåtknappen (t.ex. på Android) stänger arket, och länkar till #menu, #catering, #about
+  // eller en del i About (#about-us, #visit-us) öppnar det.
   window.addEventListener('popstate', () => {
     const { next, section } = fromHash();
     if (next) open(next, { fromHistory: true, focus: false, section });

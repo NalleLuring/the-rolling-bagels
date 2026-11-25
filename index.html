@@ -40,7 +40,7 @@
     "name": "The Rolling Bagels",
     "email": "hello@therollingbagels.com",
     "servesCuisine": ["Bagels", "Coffee", "Juice", "Smoothies"],
-    "priceRange": "SEK 35–75",
+    "priceRange": "SEK 35–125",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Odengatan 43",
@@ -117,8 +117,9 @@
       <h1 class="visually-hidden">The Rolling Bagels: bagels, coffee and juice at Odenplan</h1>
       <nav class="nav" aria-label="Main menu">
         <a class="nav__btn" href="#menu" data-open="menu">Menu</a>
-        <a class="nav__btn" href="#about" data-open="about">About</a>
         <a class="nav__btn" href="https://order.baemingo.se/?s=the-rolling-bagels&amp;v=cmsfvup5ctxyb0a39lya4vc99#/order/cmsfvup5ctxyb0a39lya4vc99" target="_blank" rel="noopener">Order</a>
+        <a class="nav__btn" href="#catering" data-open="catering">Catering</a>
+        <a class="nav__btn" href="#about" data-open="about">About</a>
       </nav>
     </header>
 
@@ -176,7 +177,7 @@
       </div>
     </div>
 
-    <section class="sheet" id="sheet" aria-label="Menu and about" data-mode="menu">
+    <section class="sheet" id="sheet" aria-label="Menu, catering and about" data-mode="menu">
       <div class="sheet__grip">
         <button class="sheet__close" type="button" aria-label="Close">
           <span class="sheet__handle" aria-hidden="true"></span>
@@ -191,35 +192,34 @@
             <section class="menu-group menu-group--bagels" aria-labelledby="rubrik-bagels">
               <h2 class="menu-group__title" id="rubrik-bagels">Bagels</h2>
               <div class="menu-group__body">
-                <section class="category">
-                  <h3 class="category__head"><span>Fish</span></h3>
+                <section class="category category--split">
                   <ul class="items">
-                    <li class="item"><p class="item__name"><span>Salmon Supreme</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream Cheese, cold-smoked salmon, capers, red onion, dill and lemon</p></li>
-                    <li class="item"><p class="item__name"><span>Spicy Tuna</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Tuna salad, pickled jalapeño, cucumber, herb oil and hot sauce</p></li>
-                    <li class="item"><p class="item__name"><span>Green Tuna</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Tuna salad, avocado, tomato and herb oil</p></li>
+                    <li class="item"><p class="item__name"><span>Salmon Supreme</span><span class="price">115<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream cheese, cold-smoked salmon, capers, red onion, dill &amp; lemon</p></li>
+                    <li class="item"><p class="item__name"><span>N.Y. Pastrami</span><span class="price">115<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream cheese, pastrami, Dijon, pickles</p></li>
+                    <li class="item"><p class="item__name"><span>Reuben</span><span class="price">115<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Pastrami, sauerkraut, cheddar, pickles, Russian dressing</p></li>
+                    <li class="item"><p class="item__name"><span>B.E.C.</span><span class="price">105<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Bacon, egg, cheddar, butter, spicy tomato relish</p></li>
+                    <li class="item"><p class="item__name"><span>Club Bagel</span><span class="price">125<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream cheese, grilled chicken, bacon, Dijon, avocado, tomato, red onion</p></li>
+                    <li class="item"><p class="item__name"><span>Spicy Tuna</span><span class="price">95<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Tuna salad, pickled jalapeño, cucumber, herb oil, Tabasco</p></li>
+                    <li class="item"><p class="item__name"><span>Green Tuna</span><span class="price">95<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Tuna salad, avocado, tomato, herb oil</p></li>
+                    <li class="item"><p class="item__name"><span>Tomato Avocado</span><span class="price">95<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream cheese, tomato, avocado, herb oil</p></li>
+                    <li class="item"><p class="item__name"><span>Feta &amp; Avocado</span><span class="price">95<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream cheese, feta spread with olives, avocado, chilli flakes, olive oil</p></li>
+                    <li class="item"><p class="item__name"><span>Peanut Butter and Jam</span><span class="price">85<span class="visually-hidden"> SEK</span></span></p></li>
+                    <li class="item"><p class="item__name"><span>Cream Cheese and Jam</span><span class="price">85<span class="visually-hidden"> SEK</span></span></p></li>
                   </ul>
+                  <p class="menu-note"><span>Swap to gluten-free bread</span><span class="price">15<span class="visually-hidden"> SEK</span></span></p>
                 </section>
                 <section class="category">
-                  <h3 class="category__head"><span>Meat</span></h3>
-                  <ul class="items">
-                    <li class="item"><p class="item__name"><span>N.Y. Pastrami</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream Cheese, pastrami, Dijon and pickles</p></li>
-                    <li class="item"><p class="item__name"><span>Reuben</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Pastrami, sauerkraut, cheddar, pickles and Russian dressing</p></li>
-                    <li class="item"><p class="item__name"><span>BLT</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Bacon, egg, cheddar and spicy tomato relish</p></li>
-                    <li class="item"><p class="item__name"><span>Chicken</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Grilled chicken, mayonnaise, bacon, avocado, tomato, red onion and herb oil</p></li>
-                  </ul>
-                </section>
-                <section class="category">
-                  <h3 class="category__head"><span>Vegetarian</span></h3>
-                  <ul class="items">
-                    <li class="item"><p class="item__name"><span>Tomato Avocado</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream Cheese, tomato, avocado and herb oil</p></li>
-                    <li class="item"><p class="item__name"><span>Feta &amp; Avocado</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Cream Cheese, feta spread with olives, avocado, chilli flakes and olive oil</p></li>
-                  </ul>
-                </section>
-                <section class="category">
-                  <h3 class="category__head"><span>Sweet bagels</span></h3>
-                  <ul class="items">
-                    <li class="item"><p class="item__name"><span>Peanut Butter and Jam</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p></li>
-                    <li class="item"><p class="item__name"><span>Cream Cheese and Jam</span><span class="price">75<span class="visually-hidden"> SEK</span></span></p></li>
+                  <h3 class="category__head"><span>Add ons</span></h3>
+                  <ul class="rows">
+                    <li class="row"><span>Feta spread</span><span class="price">20<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Tabasco</span><span class="price">10<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Avocado</span><span class="price">20<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Red onion</span><span class="price">10<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Pickles</span><span class="price">10<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Spicy tomato relish</span><span class="price">10<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Cream cheese</span><span class="price">10<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Jalapeño</span><span class="price">10<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Cucumber</span><span class="price">15<span class="visually-hidden"> SEK</span></span></li>
                   </ul>
                 </section>
               </div>
@@ -232,63 +232,88 @@
                   <h3 class="category__head"><span>Speciality coffee by Lykke Kaffegårdar</span></h3>
                   <ul class="rows">
                     <li class="row"><span>Espresso</span><span class="price">35<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Americano</span><span class="price">35<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Macchiato</span><span class="price">42<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Americano</span><span class="price">37<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Macchiato</span><span class="price">45<span class="visually-hidden"> SEK</span></span></li>
                     <li class="row"><span>Cappuccino</span><span class="price">49<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Latte regular</span><span class="price">53<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Latte large</span><span class="price">58<span class="visually-hidden"> SEK</span></span></li>
                     <li class="row"><span>Iced Latte</span><span class="price">55<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Iced Vanilla Latte</span><span class="price">58<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Cold Foam Iced Latte</span><span class="price">58<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Cold Foam Iced Vanilla Latte</span><span class="price">61<span class="visually-hidden"> SEK</span></span></li>
                   </ul>
                 </section>
                 <section class="category">
-                  <h3 class="category__head"><span>Tea &amp; Matcha</span></h3>
+                  <h3 class="category__head"><span>Speciality tea from Lykke</span></h3>
                   <ul class="rows">
                     <li class="row"><span>Chai Latte</span><span class="price">55<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Iced chai Latte</span><span class="price">55<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Green Haze Tea by Lykke</span><span class="price">45<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Earl Grey by Lykke</span><span class="price">45<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Peach Iced Tea</span><span class="price">65<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Matcha Latte</span><span class="price">65<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Iced Matcha Latte</span><span class="price">65<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Iced Chai Latte</span><span class="price">55<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Cold Foam Iced Chai Latte</span><span class="price">60<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Green Haze Tea</span><span class="price">42<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Earl Grey</span><span class="price">42<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Magical Peach Iced Tea</span><span class="price">65<span class="visually-hidden"> SEK</span></span></li>
                   </ul>
                 </section>
                 <section class="category">
-                  <h3 class="category__head"><span>Lemonades</span><span class="price">65<span class="visually-hidden"> SEK</span></span></h3>
-                  <ul class="rows">
-                    <li class="row"><span>Classic Lemonade</span></li>
-                    <li class="row"><span>Ginger Lemonade</span></li>
-                    <li class="row"><span>Blueberry Lemonade</span></li>
-                    <li class="row"><span>Strawberry Lemonade</span></li>
+                  <h3 class="category__head"><span>Hot matcha</span></h3>
+                  <ul class="items">
+                    <li class="item"><p class="item__name"><span>Matcha Latte</span><span class="price">59<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Matcha, oat milk</p></li>
+                    <li class="item"><p class="item__name"><span>Matcha Vanilla Latte</span><span class="price">62<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Matcha, vanilla, oat milk</p></li>
                   </ul>
                 </section>
                 <section class="category">
+                  <h3 class="category__head"><span>Iced matcha</span></h3>
+                  <ul class="items">
+                    <li class="item"><p class="item__name"><span>Iced Matcha Latte</span><span class="price">59<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Ice, matcha, oat milk</p></li>
+                    <li class="item"><p class="item__name"><span>Iced Vanilla Matcha Latte</span><span class="price">63<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Ice, matcha, vanilla, oat milk</p></li>
+                    <li class="item"><p class="item__name"><span>Iced Strawberry Vanilla Matcha Latte</span><span class="price">65<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Ice, matcha, strawberry syrup, vanilla, oat milk</p></li>
+                  </ul>
+                </section>
+                <section class="category">
+                  <h3 class="category__head"><span>Cold foam matcha</span></h3>
+                  <ul class="items">
+                    <li class="item"><p class="item__name"><span>Cold Foam Iced Vanilla Matcha Latte</span><span class="price">70<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Ice, matcha, vanilla, oat milk, cold foam</p></li>
+                    <li class="item"><p class="item__name"><span>Cold Foam Strawberry Iced Vanilla Matcha Latte</span><span class="price">72<span class="visually-hidden"> SEK</span></span></p><p class="item__desc">Ice, matcha, strawberry syrup, vanilla, oat milk, cold foam</p></li>
+                  </ul>
+                </section>
+                <!-- Dold tills vidare: juicerna säljs inte just nu, men kommer tillbaka i den nya lokalen.
+                     Ta bort hidden för att visa den igen. -->
+                <section class="category" hidden>
                   <h3 class="category__head"><span>Juices</span><span class="price">75<span class="visually-hidden"> SEK</span></span></h3>
                   <ul class="items">
                     <li class="item"><p class="item__name">Green Glow</p><p class="item__desc">Apple, cucumber, lemon, olive oil &amp; ice</p></li>
-                    <li class="item"><p class="item__name">Green Hero</p><p class="item__desc">Apple, avocado, cucumber, kale, lemon, olive oil &amp; ice</p></li>
+                    <li class="item"><p class="item__name">Green Hero</p><p class="item__desc">Apple, avocado, cucumber, spinach, lemon, olive oil &amp; ice</p></li>
                     <li class="item"><p class="item__name">Berry Blast</p><p class="item__desc">Strawberries, banana, apple, olive oil &amp; ice</p></li>
-                    <li class="item"><p class="item__name">Tropical Thunder</p><p class="item__desc">Pineapple, passion fruit, lemon, apple, olive oil &amp; ice</p></li>
-                    <li class="item"><p class="item__name">Golden Glow</p><p class="item__desc">Apple, carrot, turmeric, ginger, olive oil &amp; ice</p></li>
-                    <li class="item"><p class="item__name">Red Kick</p><p class="item__desc">Ginger, apple, strawberry, olive oil &amp; ice</p></li>
-                    <li class="item"><p class="item__name">Detox Hero</p><p class="item__desc">Kale, ginger, cucumber, spinach, apple, olive oil &amp; ice</p></li>
+                    <li class="item"><p class="item__name">Tropical Thunder</p><p class="item__desc">Pineapple, lemon, apple, olive oil &amp; ice</p></li>
+                    <li class="item"><p class="item__name">Golden Glow</p><p class="item__desc">Apple, carrot, turmeric, ginger, pineapple, olive oil &amp; ice</p></li>
+                    <li class="item"><p class="item__name">Red Kick</p><p class="item__desc">Ginger, apple, cucumber, strawberry, lemon, olive oil &amp; ice</p></li>
+                    <li class="item"><p class="item__name">Detox Hero</p><p class="item__desc">Ginger, cucumber, spinach, apple, olive oil &amp; ice</p></li>
                   </ul>
                 </section>
-                <section class="category">
-                  <h3 class="category__head"><span>Smoothies</span><span class="price">75<span class="visually-hidden"> SEK</span></span></h3>
+                <!-- Dold tills vidare: lemonaderna säljs inte just nu, men kommer tillbaka i den nya lokalen.
+                     Ta bort hidden för att visa den igen. -->
+                <section class="category" hidden>
+                  <h3 class="category__head"><span>Lemonades</span><span class="price">65<span class="visually-hidden"> SEK</span></span></h3>
                   <ul class="items">
-                    <li class="item"><p class="item__name">The Superfood Shake</p><p class="item__desc">Blueberries, tahini, dates, banana, flaxseeds, oat milk &amp; ice</p></li>
-                    <li class="item"><p class="item__name">The Green Machine</p><p class="item__desc">Avocado, banana, spinach, lemon, oat milk &amp; ice</p></li>
-                    <li class="item"><p class="item__name">The Strawberry Dream</p><p class="item__desc">Strawberry, banana, vanilla milk &amp; ice</p></li>
-                    <li class="item"><p class="item__name">The Chocolate Protein</p><p class="item__desc">Cocoa, banana, peanut butter, vanilla milk &amp; ice</p></li>
-                    <li class="item"><p class="item__name">The Morning Glory</p><p class="item__desc">Espresso, banana, milk &amp; ice</p></li>
+                    <li class="item"><p class="item__name">Classic Lemonade</p><p class="item__desc">Lemon, ginger</p></li>
+                    <li class="item"><p class="item__name">Strawberry Lemonade</p><p class="item__desc">Lemon, strawberries</p></li>
+                    <li class="item"><p class="item__name">Tropical Lemonade</p><p class="item__desc">Pineapple, lemon</p></li>
+                    <li class="item"><p class="item__name">Green Lemonade</p></li>
                   </ul>
                 </section>
                 <section class="category">
-                  <h3 class="category__head"><span>Add ons (smoothies)</span></h3>
+                  <h3 class="category__head"><span>Shakes</span><span class="price">75<span class="visually-hidden"> SEK</span></span></h3>
+                  <ul class="items">
+                    <li class="item"><p class="item__name">The Green Machine</p><p class="item__desc">Avocado, banana, spinach, vanilla, milk &amp; ice</p></li>
+                    <li class="item"><p class="item__name">The Strawberry Dream</p><p class="item__desc">Strawberry, banana, vanilla, milk &amp; ice</p></li>
+                    <li class="item"><p class="item__name">The Chocolate Protein</p><p class="item__desc">Cocoa, banana, peanut butter, vanilla, milk &amp; ice</p></li>
+                    <li class="item"><p class="item__name">The Morning Glory</p><p class="item__desc">Espresso, banana, oat milk &amp; ice</p></li>
+                  </ul>
+                </section>
+                <section class="category">
+                  <h3 class="category__head"><span>Add ons (shakes)</span></h3>
                   <ul class="rows">
-                    <li class="row"><span>Collagen</span><span class="price">20<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Whey protein</span><span class="price">20<span class="visually-hidden"> SEK</span></span></li>
-                    <li class="row"><span>Lions Mane</span><span class="price">20<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Collagen</span><span class="price">15<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Whey protein</span><span class="price">15<span class="visually-hidden"> SEK</span></span></li>
+                    <li class="row"><span>Lion’s Mane</span><span class="price">15<span class="visually-hidden"> SEK</span></span></li>
                   </ul>
                 </section>
               </div>
@@ -297,13 +322,12 @@
 
 
           <!-- About: knappen About öppnar arket utan menyn. Raden med genvägar följer med när man
-               scrollar och visar var man är. Varje del har en egen adress: #about-us, #catering och
+               scrollar och visar var man är. Varje del har en egen adress: #about-us och
                #visit-us (Visit us ligger längre ner, i sheet__end, och syns också efter menyn). -->
           <div class="about" id="about">
             <nav class="about__nav" aria-label="About">
               <ul class="about__links">
                 <li><a class="about__link" href="#about-us" data-section="about-us">About us</a></li>
-                <li><a class="about__link" href="#catering" data-section="catering">Catering</a></li>
                 <li><a class="about__link" href="#visit-us" data-section="visit-us">Visit us</a></li>
               </ul>
             </nav>
@@ -318,18 +342,19 @@
                 <p>At the heart of everything we do is a simple philosophy: great-tasting food should also be good for you. Real ingredients, natural processes and no unnecessary additives. Wholesome, nourishing food without compromising on flavour.</p>
               </div>
             </section>
-
-            <section class="about-sec about-sec--catering" id="catering" aria-labelledby="rubrik-catering">
-              <h2 class="about-sec__title" id="rubrik-catering">Catering</h2>
-              <div class="about-sec__body">
-                <p class="about-sec__lead">Bagels for meetings, offices and events.</p>
-                <p>Tell us the date, how many guests and any wishes, and we’ll get back to you.</p>
-                <p><a class="about-sec__mail" href="mailto:hello@therollingbagels.com?subject=Catering">hello@therollingbagels.com</a></p>
-              </div>
-            </section>
           </div>
 
-          <!-- Visit us, andra restauranger och listen: fyller minst en skärm, både efter menyn och i About. -->
+          <!-- Catering: knappen Catering öppnar arket med bara den här delen och Visit us under. Adress: #catering. -->
+          <section class="about-sec about-sec--catering catering" id="catering" aria-labelledby="rubrik-catering">
+            <h2 class="about-sec__title" id="rubrik-catering">Catering</h2>
+            <div class="about-sec__body">
+              <p class="about-sec__lead">Bagels for meetings, offices and events.</p>
+              <p>Tell us the date, how many guests and any wishes, and we’ll get back to you.</p>
+              <p><a class="about-sec__mail" href="mailto:hello@therollingbagels.com?subject=Catering">hello@therollingbagels.com</a></p>
+            </div>
+          </section>
+
+          <!-- Visit us, andra restauranger och listen: fyller minst en skärm, efter menyn, i Catering och i About. -->
           <div class="sheet__end">
           <section class="visit" id="visit-us" aria-labelledby="rubrik-visit">
             <div class="visit__inner">
